@@ -56,9 +56,9 @@ public class Room {
     }
 
     boolean RemoveReservation(int reservationId) {
-        for (Reservation reservation : Availability) {
-            if (reservation != null && reservation.ReservationId == reservationId) {
-                reservation = null;
+        for (int i = 0; i < 30; ++i) {
+            if (Availability[i] != null && Availability[i].ReservationId == reservationId) {
+                Availability[i] = null;
             }
         }
         return true;
@@ -76,12 +76,12 @@ public class Room {
     }
 
     String GetReservationRow() {
-        String row = String.format(" %02d  |\t", RoomId);;
+        String row = String.format(" %02d  |\t", RoomId);
+        ;
         for (Reservation reservation : Availability) {
             if (reservation != null) {
                 row += "** ";
-            }
-            else {
+            } else {
                 row += "__ ";
             }
         }
