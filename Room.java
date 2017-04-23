@@ -24,14 +24,16 @@ public class Room {
         if (reservation.NumberOfPeople > MaxPeople) {
             return false;
         }
+        int firstDay = reservation.Arrival;
+        int lastDay = firstDay + reservation.Days - 1;
 
-        for (int i = reservation.Arrival; i < reservation.Days + reservation.Arrival; ++i) {
+        for (int i = firstDay; i <= lastDay; ++i) {
             if (Availability[i] != null) {
                 return false;
             }
         }
 
-        for (int i = reservation.Arrival; i < reservation.Days + reservation.Arrival; ++i) {
+        for (int i = firstDay; i <= lastDay; ++i) {
             Availability[i] = reservation;
         }
 
@@ -53,9 +55,9 @@ public class Room {
         return cost;
     }
 
-    boolean RemoveReseration(int resrvationId) {
+    boolean RemoveReservation(int reservationId) {
         for (Reservation reservation : Availability) {
-            if (reservation.ReservationId == resrvationId) {
+            if (reservation.ReservationId == reservationId) {
                 reservation = null;
             }
         }
