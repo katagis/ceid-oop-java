@@ -57,7 +57,7 @@ public class Room {
 
     boolean RemoveReservation(int reservationId) {
         for (Reservation reservation : Availability) {
-            if (reservation.ReservationId == reservationId) {
+            if (reservation != null && reservation.ReservationId == reservationId) {
                 reservation = null;
             }
         }
@@ -73,6 +73,19 @@ public class Room {
             }
         }
         return Math.round(100 * ReservedCount / 30);
+    }
+
+    String GetReservationRow() {
+        String row = String.format(" %02d  |\t", RoomId);;
+        for (Reservation reservation : Availability) {
+            if (reservation != null) {
+                row += "** ";
+            }
+            else {
+                row += "__ ";
+            }
+        }
+        return row;
     }
 
 }
