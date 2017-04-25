@@ -77,7 +77,6 @@ public class Room {
 
     String GetReservationRow() {
         String row = String.format(" %02d  |\t", RoomId);
-        ;
         for (Reservation reservation : Availability) {
             if (reservation != null) {
                 row += "** ";
@@ -85,6 +84,7 @@ public class Room {
                 row += "__ ";
             }
         }
+        row += "\t$ " + TotalCost();
         return row;
     }
 

@@ -94,7 +94,7 @@ public class Hotel {
         for (int i = 1; i <= 30; ++i) {
             System.out.print(String.format("%2d ", i));
         }
-        System.out.println();
+        System.out.println("\t$ " + CalculateIncome());
         for (Room room : Rooms) {
             System.out.println(room.GetReservationRow());
         }

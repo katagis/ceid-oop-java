@@ -3,9 +3,9 @@ public class Main {
     public static void main(String[] args) {
         Hotel myHotel = new Hotel("My own foo hotel");
 
-        myHotel.AddRoom(new Room(4,10));
-        myHotel.AddRoom(new RoomTypeB(3,5,100,20));
-        myHotel.AddRoom(new Room(5,10));
+        myHotel.AddRoom(new Room(4, 10));
+        myHotel.AddRoom(new RoomTypeA(3, 5, 100));
+        myHotel.AddRoom(new Room(5, 10));
 
         Reservation reservation1 = new Reservation("Customer", 10, 18, 3);
         Reservation reservation2 = new Reservation("Customer 2", 3, 11, 2);
@@ -18,6 +18,7 @@ public class Main {
         myHotel.InsertReservation(new Reservation("Customer 5 Many", 1, 25, 5));
 
         myHotel.CancelReservation(4);
+        myHotel.CancelReservation(3);
         myHotel.InsertReservation(new Reservation("Customer 6", 9, 5, 5));
 
 
