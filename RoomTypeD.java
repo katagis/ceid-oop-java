@@ -2,18 +2,17 @@
  * Created by Harry on 4/25/2017.
  */
 
-// Half price for children
 public class RoomTypeD extends Room
 {
-    int NumOfChildren;
+    double PercentDiscount;
 
-    RoomTypeD(int maxPeople, double pricePerPerson, int numOfChildren) {
+    RoomTypeD(int maxPeople, double pricePerPerson, double percentDiscount) {
         super(maxPeople, pricePerPerson);
-        NumOfChildren = numOfChildren;
+        PercentDiscount = percentDiscount;
     }
 
     @Override
     double TotalCost() {
-        return super.TotalCost() - (NumOfChildren * PricePerPerson/2);
+        return super.TotalCost() * (1 - PercentDiscount);
     }
 }

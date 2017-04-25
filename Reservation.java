@@ -6,7 +6,7 @@ import javax.naming.spi.ResolveResult;
  * Created by Harry on 4/23/2017.
  */
 public class Reservation {
-    private static int ReservationCount = 1;
+    static int ReservationCount = 1;
 
     String CustomerName;
     int ReservationId;
@@ -26,5 +26,10 @@ public class Reservation {
 
     void SetRoom(Room reservedRoom) {
         ReservedRoom = reservedRoom;
+    }
+
+    @Override
+    public String toString(){
+        return String.format("%2d | %16s | %2d", ReservationId, CustomerName, ReservedRoom.RoomId);
     }
 }

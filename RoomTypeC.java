@@ -2,8 +2,8 @@
  * Created by Harry on 4/23/2017.
  */
 public class RoomTypeC extends Room {
-    int MinPeople;
-    int MinDays;
+    private int MinPeople;
+    private int MinDays;
 
     RoomTypeC(int maxPeople, double pricePerPerson, int minPeople, int minDays) {
         super(maxPeople, pricePerPerson);

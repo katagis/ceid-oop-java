@@ -36,8 +36,28 @@ public class Hotel {
         return null;
     }
 
+    // Useless function (reservation will never be found) but that is what is asked in the exercise
     boolean AddReservationToRoom(int reservationId, int roomId) {
-        return GetRoomFromId(roomId).AddReservation(GetReservationFromId(reservationId));
+        Room room = GetRoomFromId(roomId);
+        Reservation reservation = GetReservationFromId(reservationId);
+        if (room == null) {
+            System.out.println("Room was not found.");
+            return false;
+        }
+        if (reservation == null) {
+            System.out.println("Reservation was not found.");
+            return false;
+        }
+        return room.AddReservation(reservation);
+    }
+
+    boolean AddReservationToRoom(Reservation reservation, int roomId) {
+        Room room = GetRoomFromId(roomId);
+        if (room == null) {
+            System.out.println("Room was not found.");
+        }
+        Reservations.add(reservation);
+        return room.AddReservation(reservation);
     }
 
     // Adds the reservation in a possible room and returns said room (or returns 0 if no such room is available)
@@ -97,6 +117,18 @@ public class Hotel {
         System.out.println("\t$ " + CalculateIncome());
         for (Room room : Rooms) {
             System.out.println(room.GetReservationRow());
+        }
+    }
+
+    void PrintReservations() {
+        for (Reservation reservation : Reservations) {
+            System.out.println(reservation.toString());
+        }
+    }
+
+    void PrintRooms() {
+        for (Room room : Rooms) {
+            System.out.println(room.toString());
         }
     }
 }

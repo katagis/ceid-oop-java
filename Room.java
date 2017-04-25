@@ -88,5 +88,9 @@ public class Room {
         return row;
     }
 
+    public String toString() {
+        return String.format("%2d | %3d%% | %f", RoomId, GetFillPercent(), TotalCost());
+    }
+
 }
 
