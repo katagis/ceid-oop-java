@@ -13,10 +13,10 @@ public class RoomTypeC extends Room {
 
     @Override
     boolean AddReservation(Reservation reservation) {
-        if (reservation.Days < MinDays) {
+        if (reservation.GetDays() < MinDays) {
             return false;
         }
-        if (reservation.NumberOfPeople < MinPeople) {
+        if (reservation.GetNumberOfPeople() < MinPeople) {
             return false;
         }
         return super.AddReservation(reservation);

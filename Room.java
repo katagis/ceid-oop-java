@@ -1,40 +1,46 @@
-import sun.security.x509.AVA;
-
-import java.rmi.server.RemoteServer;
-
 /**
  * Created by Harry on 4/23/2017.
  */
 public class Room {
-    static int RoomCount = 1;
+    private static int RoomCount = 1;
 
-    int RoomId;
-    int MaxPeople;
-    Reservation[] Availability; // Represents the reservations for each day of the month
-    double PricePerPerson;
+    private int Id;
+    private int MaxPeople;
+    private double PricePerPerson;
+
+    Reservation[] Reservations; // Represents the Reservations for each day of the month
+
 
     Room(int maxPeople, double pricePerPerson) {
         MaxPeople = maxPeople;
         PricePerPerson = pricePerPerson;
-        RoomId = RoomCount++;
-        Availability = new Reservation[30];
+        Id = RoomCount++;
+        Reservations = new Reservation[30];
     }
 
-    boolean AddReservation(Reservation reservation) {
-        if (reservation.NumberOfPeople > MaxPeople) {
+    public static int GetTotalRooms() {
+        return RoomCount;
+    }
+
+    public int GetId() {
+        return Id;
+    }
+
+    public boolean AddReservation(Reservation reservation) {
+        if (reservation.GetNumberOfPeople() > MaxPeople) {
             return false;
         }
-        int firstDay = reservation.Arrival;
-        int lastDay = firstDay + reservation.Days - 1;
+        int firstDay = reservation.GetArrival();
+        int lastDay = firstDay + reservation.GetDays() - 1;
 
         for (int i = firstDay; i <= lastDay; ++i) {
-            if (Availability[i] != null) {
+            if (Reservations[i] != null) {
                 return false;
             }
         }
 
         for (int i = firstDay; i <= lastDay; ++i) {
-            Availability[i] = reservation;
+            Reservations[i] = reservation;
         }
 
 
@@ -42,32 +48,32 @@ public class Room {
         return true;
     }
 
-    // Cost for the total of reservations on this room
-    double TotalCost() {
+    // Cost for the total of Reservations on this room
+    public double TotalCost() {
         double cost = 0;
 
-        for (Reservation reservation : Availability) {
+        for (Reservation reservation : Reservations) {
             if (reservation != null) {
-                cost += reservation.NumberOfPeople * PricePerPerson;
+                cost += reservation.GetNumberOfPeople() * PricePerPerson;
             }
         }
 
         return cost;
     }
 
-    boolean RemoveReservation(int reservationId) {
+    public boolean RemoveReservation(int reservationId) {
         for (int i = 0; i < 30; ++i) {
-            if (Availability[i] != null && Availability[i].ReservationId == reservationId) {
-                Availability[i] = null;
+            if (Reservations[i] != null && Reservations[i].GetId() == reservationId) {
+                Reservations[i] = null;
             }
         }
         return true;
     }
 
     // Returns an int percent (0-100 inclusive) of the days available for the room
-    int GetFillPercent() {
+    public int GetFillPercent() {
         int ReservedCount = 0;
-        for (Reservation reservation : Availability) {
+        for (Reservation reservation : Reservations) {
             if (reservation != null) {
                 ReservedCount++;
             }
@@ -75,9 +81,9 @@ public class Room {
         return Math.round(100 * ReservedCount / 30);
     }
 
-    String GetReservationRow() {
-        String row = String.format(" %02d  |\t", RoomId);
-        for (Reservation reservation : Availability) {
+    public String GetReservationRow() {
+        String row = String.format(" %02d  |\t", Id);
+        for (Reservation reservation : Reservations) {
             if (reservation != null) {
                 row += "** ";
             } else {
@@ -89,7 +95,7 @@ public class Room {
     }
 
     public String toString() {
-        return String.format("%2d | %3d%% | %f", RoomId, GetFillPercent(), TotalCost());
+        return String.format("%2d | %3d%% | %f", Id, GetFillPercent(), TotalCost());
     }
 
 }

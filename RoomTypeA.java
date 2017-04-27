@@ -1,22 +1,24 @@
-import com.sun.org.apache.regexp.internal.RE;
-
 /**
  * Created by Harry on 4/23/2017.
  */
 public class RoomTypeA extends Room {
-    double PricePerDay;
+    private double PricePerDay;
 
     RoomTypeA(int maxPeople, double pricePerPerson, double pricePerDay) {
         super(maxPeople, pricePerPerson);
         PricePerDay = pricePerDay;
     }
 
+    public double GetPricePerDay() {
+        return PricePerDay;
+    }
+
     @Override
-    double TotalCost() {
+    public double TotalCost() {
         double cost = super.TotalCost();
 
-        for (Reservation reservation : Availability) {
-            if ( reservation != null) {
+        for (Reservation reservation : Reservations) {
+            if (reservation != null) {
                 cost += PricePerDay;
             }
         }

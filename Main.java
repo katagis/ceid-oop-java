@@ -14,8 +14,8 @@ public class Main {
     }
 
     static private int GetRandomReservationId() {
-        // We can get already canceled reservations. But this is needed in case we cancel the first reservation and the second is impossible to add to any room
-        return ThreadLocalRandom.current().nextInt(1, Reservation.ReservationCount);
+        // We can get already canceled Reservations. But this is needed in case we cancel the first reservation and the second is impossible to add to any room
+        return ThreadLocalRandom.current().nextInt(1, Reservation.GetTotalReservations());
     }
 
     static private void PrintMenu() {
@@ -60,8 +60,7 @@ public class Main {
         } else {
             if (hotel.AddReservationToRoom(reservation, roomId)) {
                 System.out.println("Reservation added.");
-            }
-            else {
+            } else {
                 System.out.println("Reservation could not be added.");
             }
         }

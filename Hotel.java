@@ -4,9 +4,9 @@ import java.util.ArrayList;
  * Created by Harry on 4/23/2017.
  */
 public class Hotel {
-    String Name;
-    ArrayList<Room> Rooms;
-    ArrayList<Reservation> Reservations;
+    private String Name;
+    private ArrayList<Room> Rooms;
+    private ArrayList<Reservation> Reservations;
 
     Hotel(String name) {
         Name = name;
@@ -20,7 +20,7 @@ public class Hotel {
 
     Room GetRoomFromId(int roomId) {
         for (Room room : Rooms) {
-            if (room.RoomId == roomId) {
+            if (room.GetId() == roomId) {
                 return room;
             }
         }
@@ -29,7 +29,7 @@ public class Hotel {
 
     Reservation GetReservationFromId(int reservationId) {
         for (Reservation reservation : Reservations) {
-            if (reservation.ReservationId == reservationId) {
+            if (reservation.GetId() == reservationId) {
                 return reservation;
             }
         }
@@ -66,8 +66,8 @@ public class Hotel {
         for (Room room : Rooms) {
             if (room.AddReservation(reservation)) {
                 Reservations.add(reservation);
-                System.out.println("Reservation was added to room: " + room.RoomId);
-                return room.RoomId;
+                System.out.println("Reservation was added to room: " + room.GetId());
+                return room.GetId();
             }
         }
         System.out.println("There are no available rooms for this reservation.");
@@ -81,7 +81,7 @@ public class Hotel {
             System.out.println("Reservation doesn't exist.");
             return false;
         }
-        boolean WasRemoved = reservation.ReservedRoom.RemoveReservation(reservationId);
+        boolean WasRemoved = reservation.GetRoom().RemoveReservation(reservationId);
 
         if (WasRemoved) {
             System.out.println("Reservation has been canceled.");
@@ -110,6 +110,7 @@ public class Hotel {
     }
 
     void PrintReservationTable() {
+        System.out.println("In hotel: " + Name);
         System.out.print("ROOM |\t");
         for (int i = 1; i <= 30; ++i) {
             System.out.print(String.format("%2d ", i));

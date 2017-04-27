@@ -1,22 +1,18 @@
-import com.sun.org.apache.regexp.internal.RE;
-
-import javax.naming.spi.ResolveResult;
-
 /**
  * Created by Harry on 4/23/2017.
  */
 public class Reservation {
-    static int ReservationCount = 1;
+    private static int ReservationCount = 1;
 
-    String CustomerName;
-    int ReservationId;
-    int Arrival;
-    int Days;
-    int NumberOfPeople;
-    Room ReservedRoom;
+    private String CustomerName;
+    private int Id;
+    private int Arrival;
+    private int Days;
+    private int NumberOfPeople;
+    private Room ReservedRoom;
 
     Reservation(String customerName, int arrival, int days, int numberOfPeople) {
-        ReservationId = ReservationCount++;
+        Id = ReservationCount++;
         CustomerName = customerName;
         Arrival = arrival;
         Days = days;
@@ -24,12 +20,36 @@ public class Reservation {
         ReservedRoom = null;
     }
 
-    void SetRoom(Room reservedRoom) {
+    public static int GetTotalReservations() {
+        return ReservationCount;
+    }
+
+    public int GetId() {
+        return Id;
+    }
+
+    public int GetArrival() {
+        return Arrival;
+    }
+
+    public int GetDays() {
+        return Days;
+    }
+
+    public int GetNumberOfPeople() {
+        return NumberOfPeople;
+    }
+
+    public void SetRoom(Room reservedRoom) {
         ReservedRoom = reservedRoom;
     }
 
+    public Room GetRoom() {
+        return ReservedRoom;
+    }
+
     @Override
-    public String toString(){
-        return String.format("%2d | %16s | %2d", ReservationId, CustomerName, ReservedRoom.RoomId);
+    public String toString() {
+        return String.format("%2d | %16s | %2d", Id, CustomerName, ReservedRoom.GetId());
     }
 }
