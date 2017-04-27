@@ -14,11 +14,11 @@ public class Hotel {
         Reservations = new ArrayList<>();
     }
 
-    void AddRoom(Room room) {
+    public void AddRoom(Room room) {
         Rooms.add(room);
     }
 
-    Room GetRoomFromId(int roomId) {
+    public Room GetRoomFromId(int roomId) {
         for (Room room : Rooms) {
             if (room.GetId() == roomId) {
                 return room;
@@ -27,7 +27,7 @@ public class Hotel {
         return null;
     }
 
-    Reservation GetReservationFromId(int reservationId) {
+    public Reservation GetReservationFromId(int reservationId) {
         for (Reservation reservation : Reservations) {
             if (reservation.GetId() == reservationId) {
                 return reservation;
@@ -37,7 +37,7 @@ public class Hotel {
     }
 
     // Useless function (reservation will never be found) but that is what is asked in the exercise
-    boolean AddReservationToRoom(int reservationId, int roomId) {
+    public boolean AddReservationToRoom(int reservationId, int roomId) {
         Room room = GetRoomFromId(roomId);
         Reservation reservation = GetReservationFromId(reservationId);
         if (room == null) {
@@ -51,7 +51,7 @@ public class Hotel {
         return room.AddReservation(reservation);
     }
 
-    boolean AddReservationToRoom(Reservation reservation, int roomId) {
+    public boolean AddReservationToRoom(Reservation reservation, int roomId) {
         Room room = GetRoomFromId(roomId);
         if (room == null) {
             System.out.println("Room was not found.");
@@ -62,7 +62,7 @@ public class Hotel {
 
     // Adds the reservation in a possible room and returns said room (or returns 0 if no such room is available)
     // Also adds the reservation in the reservation list of the hotel
-    int InsertReservation(Reservation reservation) {
+    public int InsertReservation(Reservation reservation) {
         for (Room room : Rooms) {
             if (room.AddReservation(reservation)) {
                 Reservations.add(reservation);
@@ -75,7 +75,7 @@ public class Hotel {
     }
 
 
-    boolean CancelReservation(int reservationId) {
+    public boolean CancelReservation(int reservationId) {
         Reservation reservation = GetReservationFromId(reservationId);
         if (reservation == null) {
             System.out.println("Reservation doesn't exist.");
@@ -93,7 +93,7 @@ public class Hotel {
         return false;
     }
 
-    double CalculateIncome() {
+    public double CalculateIncome() {
         double totalIncome = 0;
         for (Room room : Rooms) {
             totalIncome += room.TotalCost();
@@ -101,7 +101,7 @@ public class Hotel {
         return totalIncome;
     }
 
-    double CalculateIncome(int roomId) {
+    public double CalculateIncome(int roomId) {
         Room room = GetRoomFromId(roomId);
         if (room == null) {
             return 0;
@@ -109,7 +109,7 @@ public class Hotel {
         return room.TotalCost();
     }
 
-    void PrintReservationTable() {
+    public void PrintReservationTable() {
         System.out.println("In hotel: " + Name);
         System.out.print("ROOM |\t");
         for (int i = 1; i <= 30; ++i) {
@@ -121,13 +121,13 @@ public class Hotel {
         }
     }
 
-    void PrintReservations() {
+    public void PrintReservations() {
         for (Reservation reservation : Reservations) {
             System.out.println(reservation.toString());
         }
     }
 
-    void PrintRooms() {
+    public void PrintRooms() {
         for (Room room : Rooms) {
             System.out.println(room.toString());
         }
